@@ -2,7 +2,8 @@ export interface IListItemProps {
   listId: string;
   name: string;
   quantity: number;
-  createdAt?: Date;
+  checked: Date | null;
+  createdAt: Date;
   updatedAt?: Date;
   deletedAt?: Date;
 }

@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ClientAnonymous {
+  id         String   @id @default(uuid()) @map("id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  lastSeenAt DateTime @updatedAt @map("last_seen_at")
+
+  lists ShoppingList[]
+
+  @@map("client_anonymous")
+}
+
+model ShoppingList {
+  id        String    @id @default(uuid()) @map("id")
+  name      String    @map("name")
+  source    String?   @map("source")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  clientAnonymousId String?          @map("client_anonymous_id")
+  clientAnonymous   ClientAnonymous? @relation(fields: [clientAnonymousId], references: [id], onDelete: SetNull)
+
+  items ShoppingItem[]
+
+  @@index([clientAnonymousId])
+  @@index([deletedAt])
+  @@map("shopping_list")
+}
+
+model ShoppingItem {
+  id        String    @id @default(uuid()) @map("id")
+  name      String    @map("name")
+  quantity  Int       @default(1) @map("quantity")
+  unit      String?   @map("unit")
+  checked   DateTime? @map("checked")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  listId String       @map("list_id")
+  list   ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  @@index([name])
+  @@index([checked])
+  @@map("shopping_item")
+}

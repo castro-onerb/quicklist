@@ -6,6 +6,7 @@ import { Env } from './config/env';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get<ConfigService<Env, true>>(ConfigService);
+  app.enableShutdownHooks();
   const port = config.get('PORT', { infer: true });
   await app.listen(port);
 }
