@@ -14,14 +14,14 @@ export class CreateListUseCase {
     private readonly policy: CanCreateNewListPolicy
   ) {}
 
-  async execute({ name }: ICreateListRequest): Promise<TCreateListResponse> {
+  async execute({ name, clientAnonymousId }: ICreateListRequest): Promise<TCreateListResponse> {
     const canCreate = await this.policy.execute({ name });
 
     if (!canCreate) {
       return left(new ListAlreadyExistsError());
     }
 
-    const list = List.create({ name, items: [] });
+    const list = List.create({ name, items: [], anonymousId: clientAnonymousId });
 
     await this.listRepository.save(list);
 

@@ -1,5 +1,7 @@
+import { UniqueID } from '@/core/value-objects/unique-id.vo';
+
 export interface ISaveProps {
-  id: string;
+  id: UniqueID;
   listId: string;
   name: string;
   quantity?: number;

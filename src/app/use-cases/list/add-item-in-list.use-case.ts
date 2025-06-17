@@ -6,6 +6,7 @@ import { IAddItemInListRequest, TAddItemInListResponse } from './types/add-item-
 import { left, right } from '@/core/errors/either';
 import { ListNotFoundError } from './errors';
 import { ListItem } from '@/domain/list/entities/list-item.entity';
+import dayjs from '@/core/configs/dayjs.config';
 
 @Injectable()
 export class AddItemInListUseCase {
@@ -29,6 +30,8 @@ export class AddItemInListUseCase {
       listId,
       name,
       quantity,
+      checked: null,
+      createdAt: dayjs().toDate(),
     });
 
     await this.listItemRepository.save(listItem);

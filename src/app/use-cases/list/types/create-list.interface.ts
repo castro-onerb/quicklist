@@ -2,6 +2,7 @@ import { Either } from '@/core/errors/either';
 import { ListAlreadyExistsError } from '../errors';
 
 export interface ICreateListRequest {
+  clientAnonymousId: string;
   name: string;
 }
 interface CreateListSuccess {

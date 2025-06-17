@@ -9,10 +9,10 @@ export class PrismaListItemRepository implements ListItemRepository {
   async save(props: ISaveProps): Promise<void> {
     await this.prisma.shoppingItem.upsert({
       where: {
-        id: props.id, // id deve estar em ISaveProps
+        id: props.id.toString(), // id deve estar em ISaveProps
       },
       create: {
-        id: props.id,
+        id: props.id.toString(),
         name: props.name,
         quantity: props.quantity ?? 1,
         unit: props.unit ?? null,
