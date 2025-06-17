@@ -5,10 +5,11 @@ export class InMemoryClientAnonymousRepository extends ClientAnonymousRepository
   public items = new Map<string, ClientAnonymous>();
 
   async findById(id: string): Promise<ClientAnonymous | null> {
-    return this.items.get(id) ?? null;
+    return Promise.resolve(this.items.get(id) ?? null);
   }
 
   async save(client: ClientAnonymous): Promise<void> {
     this.items.set(client.id.toString(), client);
+    return Promise.resolve();
   }
 }

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { AddItemInListUseCase } from '@/app/use-cases/list/add-item-in-list.use-case';
-import { InMemoryListRepository } from '../../in-memory/in-memory-list.repository';
-import { InMemoryListItemRepository } from '../../in-memory/in-memory-list-item.repository';
 import { List } from '@/domain/list/entities/list.entity';
 import { ListNotFoundError } from '@/app/use-cases/list/errors';
+import { InMemoryListRepository } from 'test/in-memory/in-memory-list.repository';
+import { InMemoryListItemRepository } from 'test/in-memory/in-memory-list-item.repository';
 
 let listRepo: InMemoryListRepository;
 let itemRepo: InMemoryListItemRepository;

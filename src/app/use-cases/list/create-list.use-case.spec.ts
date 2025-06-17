@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemoryListRepository } from '../../in-memory/in-memory-list.repository';
 import { CanCreateNewListPolicy } from '@/app/use-cases/list/policies/can-create-new-list.policy';
 import { CreateListUseCase } from '@/app/use-cases/list/create-list.use-case';
 import { ListAlreadyExistsError } from '@/app/use-cases/list/errors';
 import { List } from '@/domain/list/entities/list.entity';
+import { InMemoryListRepository } from 'test/in-memory/in-memory-list.repository';
 
 let repo: InMemoryListRepository;
 let useCase: CreateListUseCase;

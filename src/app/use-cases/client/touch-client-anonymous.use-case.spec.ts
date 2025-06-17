@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { TouchClientAnonymousUseCase } from '@/app/use-cases/client/touch-client-anonymous.use-case';
-import { InMemoryClientAnonymousRepository } from '../../in-memory/in-memory-client.repository';
 import { ClientAnonymous } from '@/domain/client/entities/client-anonymous.entity';
 import { UniqueID } from '@/core/value-objects/unique-id.vo';
+import { InMemoryClientAnonymousRepository } from 'test/in-memory/in-memory-client.repository';
 
 let repo: InMemoryClientAnonymousRepository;
 let useCase: TouchClientAnonymousUseCase;
@@ -27,6 +27,7 @@ describe('TouchClientAnonymousUseCase', () => {
     const result = await useCase.execute('abc');
     expect(result.right()).toBe(true);
     const stored = repo.items.get('abc')!;
-    expect(stored.lastSeenAt > (lastSeen ?? new Date(0))).toBe(true);
+    expect(stored.lastSeenAt).toBeDefined();
+    expect(stored.lastSeenAt!.getTime()).toBeGreaterThan((lastSeen ?? new Date(0)).getTime());
   });
 });
