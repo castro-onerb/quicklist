@@ -16,7 +16,7 @@ beforeEach(() => {
 
 describe('CreateListUseCase', () => {
   it('creates a list', async () => {
-    const result = await useCase.execute({ name: 'Test' });
+    const result = await useCase.execute({ name: 'Test', clientAnonymousId: 'c1' });
     expect(result.right()).toBe(true);
     expect(repo.items.size).toBe(1);
   });
@@ -24,7 +24,7 @@ describe('CreateListUseCase', () => {
   it('returns error when name already exists', async () => {
     const list = List.create({ name: 'Test', items: [], anonymousId: null });
     await repo.save(list);
-    const result = await useCase.execute({ name: 'Test' });
+    const result = await useCase.execute({ name: 'Test', clientAnonymousId: 'c1' });
     expect(result.left()).toBe(true);
     expect(result.value).toBeInstanceOf(ListAlreadyExistsError);
   });
