@@ -17,6 +17,10 @@ export class List extends AggregateRoot<IListProps> {
     return this._props.source;
   }
 
+  get clientId() {
+    return this._props.anonymousId;
+  }
+
   get createdAt() {
     return this._props.createdAt;
   }

@@ -18,4 +18,15 @@ export class InMemoryListRepository extends ListRepository {
   async findById(id: string): Promise<List | null> {
     return this.items.get(id) ?? null;
   }
+
+  async findManyByClientId(clientId: string): Promise<List[]> {
+    const lists: List[] = [];
+    for (const list of this.items.values()) {
+      // access protected props via as any to read anonymousId
+      if ((list as any)._props.anonymousId === clientId) {
+        lists.push(list);
+      }
+    }
+    return lists;
+  }
 }
